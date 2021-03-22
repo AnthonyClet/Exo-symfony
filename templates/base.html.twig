@@ -10,7 +10,21 @@
 </head>
 <body>
 
-    {% block title %}{% endblock title %}
+<header class="header">
+
+    <nav class="menu-container">
+        <ul class="menu">
+            <li><a href="{{ path('home') }}"></a>Accueil</li>
+            <li><a href="{{ path('list_articles') }}"></a>Articles</li>
+        </ul>
+    </nav>
+
+    <form class="search-form-articles" action="{{ path('search_articles') }}">
+        <label for="search">Rechercher => </label>
+        <input type="search" name="search">
+    </form>
+
+</header>
 
 <main>
     {% block main %}{% endblock main %}

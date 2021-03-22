@@ -19,32 +19,34 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Permet de récupérer tous les articles en base de données, dont le contenu
+     * contient ce que l'utilisateur a recherché (la variable $search, passé en paramètre)
+     */
+    public function searchByTerm($search)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        // avec doctrine, on n'a pas besoin de créer du SQL à la main
+        // on utilise le query builder, qui permet d'écrire des requêtes en PHP et qu'elles soient traduites
+        // en SQL
+        // le query builder permet donc de créer des requêtes en base de données, et il prend
+        // un parametre : l'alias donné à la table actuelle (ici 'a' pour article, car on est dans l'articleRepository)
+        $queryBuilder= $this->createQueryBuilder('a');
 
-    /*
-    public function findOneBySomeField($value): ?Article
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $queryBuilder
+            // je fais une requête SELECT sur la table article (alias 'a')
+            ->select('a')
+            // dont les parmètres contienent 'search' (la recherche user)
+            ->where('a.content LIKE :search')
+            // j'indique à quoi correspond le parametre search : il correspond à la variable $search
+            // donc au contenu recherché par l'utilisateur, suffixé et préfixé par des '%', pour dire que le contenu peut
+            // être à n'importe quel endroit du contenu de l'article
+            ->setParameter('search', '%'.$search.'%')
+            // je récupère ma requete
+            ->getQuery();
+
+
+        // je retourne les résultats de la recherche
+        return $query->getResult();
     }
-    */
+
 }
