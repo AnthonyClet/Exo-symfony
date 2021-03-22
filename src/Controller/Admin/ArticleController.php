@@ -3,10 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
-use Doctrine\ORM\EntityManager;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -41,5 +41,27 @@ class ArticleController extends AbstractController
         return $this;
         */
     }
+
+
+    /**
+     * @Route("/admin/article/update/{id}", name="update_article")
+     */
+    // Je créer ma méthode.
+    public function updateArticle(ArticleRepository $articleRepository, EntityManagerInterface $entityManager, $id)
+    {
+        // Je fais ma requete pour aller chercher mon article correspondant à ma withecard
+        $article = $articleRepository->find(['id'=>$id]);
+
+        // Je modifie les infos de mon article a ma convenance (en l'occurence le titre)
+        $article->setTitle('J\'ai été modifié');
+
+        // j'enregistre la modification dans ma BDD grace a flush().
+        $entityManager->flush();
+
+        // Je retourne un message comme quoi mon article a bien été modifié.
+        return new Response('Votre article a bien été modifié.');
+
+    }
+
 
 }
