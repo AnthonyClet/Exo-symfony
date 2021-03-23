@@ -34,7 +34,9 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         //Je retourne ma vue affin d'afficher un message de confirmation.
-        return $this->render('add_articles.html.twig');
+        return $this->render('add_articles.html.twig', [
+            'article' => $article
+        ]);
 
         /*
         $this->addFlash("success","l article a bien ete enregister");
@@ -49,7 +51,7 @@ class ArticleController extends AbstractController
     public function editArticle(ArticleRepository $articleRepository, EntityManagerInterface $entityManager, $id)
     {
         // Je fais ma requete pour aller chercher mon article correspondant à ma withecard
-        $article = $articleRepository->find(['id'=>$id]);
+        $article = $articleRepository->find($id);
 
         if(is_null($article)) {
             throw $this->createNotFoundException('article non trouvé');
@@ -62,7 +64,9 @@ class ArticleController extends AbstractController
             $entityManager->flush();
 
             // Je retourne un message comme quoi mon article a bien été modifié.
-            return $this->redirectToRoute('show_article');
+            return $this->render('edit_articles.html.twig', [
+                'article' => $article
+            ]);
         }
 
     }
@@ -70,9 +74,20 @@ class ArticleController extends AbstractController
     /**
      * @Route("/admin/articles/remove/{id}", name="remove_article")
      */
-    public function removeArticle()
+    public function removeArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
+        $article = $articleRepository->find($id);
 
+        if (is_null($article)) {
+            throw $this->createNotFoundException('article non trouvé');
+        }
+
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        return $this->render('remove_articles.html.twig', [
+            'article' => $article
+        ]);
     }
 
 
