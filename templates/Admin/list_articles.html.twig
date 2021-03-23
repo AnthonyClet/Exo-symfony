@@ -8,6 +8,8 @@
         <thead>
         <tr>
 
+            <th>N°</th>
+            <th>Category</th>
             <th>Name</th>
             <th>Content</th>
             <th>CreatedAt</th>
@@ -19,6 +21,12 @@
         {% for article in articles %}
             <tr>
 
+                <td>{{ article.id }}</td>
+                {% if article.category %}
+                    <td>{{ article.category.title }}</td>
+                {% else %}
+                    <td>NONE</td>
+                {% endif %}
                 <td>{{ article.title }}</td>
                 <td>{{ article.content }}</td>
                 <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
