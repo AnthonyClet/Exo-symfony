@@ -34,9 +34,8 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         //Je retourne ma vue affin d'afficher un message de confirmation.
-        return $this->render('add_articles.html.twig', [
-            'article' => $article
-        ]);
+        $this->addFlash("success","l'article à bien été enregisté.");
+        return $this->redirectToRoute('admin_list_articles');
 
         /*
         $this->addFlash("success","l article a bien ete enregister");
@@ -64,9 +63,8 @@ class ArticleController extends AbstractController
             $entityManager->flush();
 
             // Je retourne un message comme quoi mon article a bien été modifié.
-            return $this->render('edit_articles.html.twig', [
-                'article' => $article
-            ]);
+            $this->addFlash("success","l'article à bien été modifié.");
+            return $this->redirectToRoute('admin_list_articles');
         }
 
     }
@@ -85,9 +83,9 @@ class ArticleController extends AbstractController
         $entityManager->remove($article);
         $entityManager->flush();
 
-        return $this->render('remove_articles.html.twig', [
-            'article' => $article
-        ]);
+        $this->addFlash('success', 'Votre article à bien été suprimé.');
+
+        return $this->redirectToRoute('admin_list_articles');
     }
 
     /**
@@ -97,7 +95,7 @@ class ArticleController extends AbstractController
     {
         $articles = $articleRepository->findAll();
 
-        return $this->render('/Admin/list_articles.html.twig', [
+        return $this->render('/admin/list_articles.html.twig', [
             'articles' => $articles
         ]);
     }

@@ -27,7 +27,17 @@
 </header>
 
 <main>
+
+    {% for message in app.flashes('success') %}
+
+        <div class="flash-success">
+            <h2>{{ message }}</h2>
+        </div>
+
+    {% endfor %}
+
     {% block main %}{% endblock main %}
+
 </main>
 
 </body>
