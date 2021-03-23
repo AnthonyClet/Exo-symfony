@@ -1,20 +1,11 @@
 * {
     box-sizing: border-box;
-}
-
-.articles-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.article {
-    width: 50%;
-    text-align: center;
-    padding: 20px;
+    font-size: large;
 }
 
 .header {
     height: 100px;
+    margin-bottom: 40px;
     background-color: darkgrey;
     display: flex;
     justify-content: space-between;
@@ -33,4 +24,22 @@
 
 form input {
     margin-right: 50px;
+}
+
+.article{
+    width: 85%;
+    margin: 0 auto;
+    border: 2px solid black;
+}
+
+.article th, tr, td{
+    border: 2px solid black;
+}
+
+.article td{
+    padding: 7px;
+}
+
+.article th{
+    background-color: darkgrey;
 }

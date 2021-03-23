@@ -1,21 +1,39 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} List_article {% endblock tilte %}
+
 {% block main %}
 
-    <section class="articles-container">
+    <table class="article">
+        <thead>
+        <tr>
 
-        {% if articles | length > 0 %}
-            {% for article in articles %}
-                <article class="article">
-                    <a href="{{ path('show_article', {'id': article.id}) }}">
-                        <h1>{{article.title}}</h1>
-                    </a>
-                    <p>{{ article.content }}</p>
-                </article>
-            {% endfor %}
-        {% else %}
-            <p>Aucun article trouvé pour ce contenu</p>
-        {% endif %}
-    </section>
+            <th>Name</th>
+            <th>Content</th>
+            <th>CreatedAt</th>
+
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+
+                <td>{{ article.title }}</td>
+                <td>{{ article.content }}</td>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+
+                <td>
+                    <a href="{{ path('show_article', {'id': article.id}) }}">show</a>
+                    <a href="{{ path('edit_article', {'id': article.id}) }}">edit</a>
+                    <a href="{{ path('remove_article', {'id': article.id}) }}">remove</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('add_article') }}">Ajouter un article</a>
 
 {% endblock main %}

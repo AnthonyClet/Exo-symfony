@@ -20,12 +20,6 @@ class ArticleController extends AbstractController
      */
     public function listArticles(ArticleRepository $articleRepository)
     {
-        // faire une requête en base de données
-        // pour récupérer tous les articles de la table article.
-
-        // les classes de repository permettent d'utiliser des requêtes
-        // SQL génériques (comme récupérer tous les éléments d'une table) et
-        // prêtes à l'emploi.
         $articles = $articleRepository->findAll();
 
         return $this->render('list_articles.html.twig', [
@@ -62,5 +56,9 @@ class ArticleController extends AbstractController
             'article' => $article
         ]);
     }
+
+    /**
+     * @Route("/admin/")
+     */
 
 }
