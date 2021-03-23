@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} List_article {% endblock title %}
+{% block title %} Admin_list_articles {% endblock title %}
 
 {% block main %}
 
@@ -12,6 +12,7 @@
             <th>Content</th>
             <th>CreatedAt</th>
 
+            <th>actions</th>
         </tr>
         </thead>
         <tbody>
@@ -22,10 +23,17 @@
                 <td>{{ article.content }}</td>
                 <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 
+                <td class="input_actions">
+                    <a href="{{ path('show_article', {'id': article.id}) }}">show</a>
+                    <a href="{{ path('admin_edit_article', {'id': article.id}) }}">edit</a>
+                    <a href="{{ path('admin_remove_article', {'id': article.id}) }}">remove</a>
+                </td>
             </tr>
         {% endfor %}
 
         </tbody>
     </table>
+
+    <a href="{{ path('admin_add_article') }}">Ajouter un article</a>
 
 {% endblock main %}

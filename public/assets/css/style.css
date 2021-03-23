@@ -43,3 +43,9 @@ form input {
 .article th{
     background-color: darkgrey;
 }
+
+.input_actions{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}

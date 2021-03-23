@@ -13,7 +13,7 @@ class ArticleController extends AbstractController
 {
     //Je défini ma route
     /**
-     * @Route("/admin/articles/add", name="add_article")
+     * @Route("/admin/articles/add", name="admin_add_article")
      */
 
     // Je créer ma fonction qui va me permetre d'ajouter un article a ma BDD et je lui fais hériter
@@ -45,7 +45,7 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/admin/articles/edit/{id}", name="edit_article")
+     * @Route("/admin/articles/edit/{id}", name="admin_edit_article")
      */
     // Je créer ma méthode.
     public function editArticle(ArticleRepository $articleRepository, EntityManagerInterface $entityManager, $id)
@@ -72,7 +72,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/admin/articles/remove/{id}", name="remove_article")
+     * @Route("/admin/articles/remove/{id}", name="admin_remove_article")
      */
     public function removeArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
     {
@@ -87,6 +87,18 @@ class ArticleController extends AbstractController
 
         return $this->render('remove_articles.html.twig', [
             'article' => $article
+        ]);
+    }
+
+    /**
+     * @Route("/admin/articles", name="admin_list_articles")
+     */
+    public function showArticles(ArticleRepository $articleRepository)
+    {
+        $articles = $articleRepository->findAll();
+
+        return $this->render('/Admin/list_articles.html.twig', [
+            'articles' => $articles
         ]);
     }
 
