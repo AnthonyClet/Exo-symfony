@@ -21,11 +21,15 @@ class ArticleController extends AbstractController
     // de la class EntityManagerInterface.
     public function addArticle(EntityManagerInterface $entityManager)
     {
-        // Je créer mon article
+        // Je créer mon article grace a ma class Article()
         $article = new Article();
 
+        // Je créer une variable qui va acceuillir ma création de formulaire
+        // grace a la class creatForm(). Pour cette création de formulaire j'instancie ma class ArticleType
+        // qui va créer automatiquement les input en fonction des champs de ma BDD aux quels je fais appel
         $articleForm = $this->createForm(ArticleType::class, $article);
 
+        // Je retourne ma vue et je retourne mon formulaire dans un tableau que je nome 'articleFormView'
         return $this->render('/admin/add_articles.html.twig', [
             'articleFormView' => $articleForm->createView()
         ]);
