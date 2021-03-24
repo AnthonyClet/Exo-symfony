@@ -33,7 +33,14 @@ class Article
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * Chaque article ne pourra avoir qu'une seule catégorie. Donc j'utilise ici
+     * l'annotation ManyToOne pour créer la relation. Le many représente les articles et le one
+     * représente la table reliée, à savoir les catégorie (un article (many) ne peut avoir qu'une seule catégorie (one)
+     *
+     * Si j'ai ajouté la relation inverse (le OneToMany) du côté des catégorie, alors je dois
+     * ici préciser la propriété dans l'entité Category qui gère le OneToMany
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $category;
 

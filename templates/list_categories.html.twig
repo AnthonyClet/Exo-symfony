@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} List_Categories {% endblock title %}
+
+{% block main %}
+
+    <table class="article">
+        <thead>
+            <tr>
+
+                <th>N°</th>
+                <th>Category_Name</th>
+                <th>Objects</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for category in categories %}
+
+                <tr>
+
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.title }}</td>
+                    <td>
+                        {% for article in category.articles %}
+                            {{ article.title }} /
+                        {% endfor %}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+        </tbody>
+
+{% endblock main %}

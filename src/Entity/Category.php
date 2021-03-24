@@ -37,6 +37,18 @@ class Category
      */
     private $isPublished;
 
+    /**
+     * Si je veux pouvoir récupérer les articles depuis les catégories, je dois ajouter
+     * la relation inverse au ManyToOne déclaré dans l'entité article, donc un OneToMany et je le relie
+     * avec l'entité Article.
+     *
+     * Je précise aussi, dans l'entité quelle propriété fait l'inverse du OneToMany (donc le ManyToOne),
+     * soit la propriété Category.
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     */
+    private $articles;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,5 +100,15 @@ class Category
         $this->isPublished = $isPublished;
 
         return $this;
+    }
+
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    public function setArticles($articles): void
+    {
+        $this->articles = $articles;
     }
 }
