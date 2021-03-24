@@ -7,6 +7,7 @@ use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,7 +20,7 @@ class ArticleController extends AbstractController
 
     // Je créer ma fonction qui va me permetre d'ajouter un article a ma BDD et je lui fais hériter
     // de la class EntityManagerInterface.
-    public function addArticle(EntityManagerInterface $entityManager)
+    public function addArticle(EntityManagerInterface $entityManager, Request $request)
     {
         // Je créer mon article grace a ma class Article()
         $article = new Article();
@@ -28,6 +29,19 @@ class ArticleController extends AbstractController
         // grace a la class creatForm(). Pour cette création de formulaire j'instancie ma class ArticleType
         // qui va créer automatiquement les input en fonction des champs de ma BDD aux quels je fais appel
         $articleForm = $this->createForm(ArticleType::class, $article);
+
+        $articleForm->handleRequest($request);
+
+        if($articleForm->isSubmitted() && $articleForm->isValid()) {
+
+            $article = $articleForm->getData();
+
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash("success","Votre article à bien été ajouté");
+            return $this->redirectToRoute('admin_list_articles');
+        }
 
         // Je retourne ma vue et je retourne mon formulaire dans un tableau que je nome 'articleFormView'
         return $this->render('/admin/add_articles.html.twig', [
