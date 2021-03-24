@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,20 +23,27 @@ class ArticleController extends AbstractController
     {
         // Je créer mon article
         $article = new Article();
-        // Je lui attribue toutes les valeurs liées aux colonnes de mes entités.
-        $article->setTitle('Je suis nouveau');
-        $article->setContent('On m\'a ajouté grace au nouveau bouton !');
-        $article->setCreatedAt(new \DateTime('NOW'));
 
-        // Je dis à doctrine que je viens de créer mon article.
-        $entityManager->persist($article);
+        $articleForm = $this->createForm(ArticleType::class, $article);
 
-        // Je demande à doctrine d'envoyer tout les elements en BDD.
-        $entityManager->flush();
+        return $this->render('/admin/add_articles.html.twig', [
+            'articleFormView' => $articleForm->createView()
+        ]);
 
-        //Je retourne ma vue affin d'afficher un message de confirmation.
-        $this->addFlash("success","l'article à bien été enregisté.");
-        return $this->redirectToRoute('admin_list_articles');
+//        // Je lui attribue toutes les valeurs liées aux colonnes de mes entités.
+//        $article->setTitle('Je suis nouveau');
+//        $article->setContent('On m\'a ajouté grace au nouveau bouton !');
+//        $article->setCreatedAt(new \DateTime('NOW'));
+//
+//        // Je dis à doctrine que je viens de créer mon article.
+//        $entityManager->persist($article);
+//
+//        // Je demande à doctrine d'envoyer tout les elements en BDD.
+//        $entityManager->flush();
+//
+//        //Je retourne ma vue affin d'afficher un message de confirmation.
+//        $this->addFlash("success","l'article à bien été enregisté.");
+//        return $this->redirectToRoute('admin_list_articles');
 
         /*
         $this->addFlash("success","l article a bien ete enregister");
