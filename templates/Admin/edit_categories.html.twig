@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block style %}{{ asset('assets/css/style.css') }}{% endblock style %}
+
+{% block title %} Admin_add_categories {% endblock title %}
+
+{% block main %}
+
+    <h1 class="title_page">Modification de la catégorie</h1>
+    {# je retourne mon formulaire grace a la methode form(je renseigne le nom du tableau de mon formulaire) #}
+
+    {{ form_start(editCategoriesForm , {'attr': {'class': 'form_article'}}) }}
+
+    <div class="title-form-article">
+        {{ form_label(editCategoriesForm.title) }}
+        {{ form_widget(editCategoriesForm.title) }}
+    </div>
+
+    <div class="content-form-article">
+        {{ form_label(editCategoriesForm.description) }}
+        {{ form_widget(editCategoriesForm.description) }}
+    </div>
+
+    <div class="createdat-form-article">
+        {{ form_label(editCategoriesForm.createdAt) }}
+        {{ form_widget(editCategoriesForm.createdAt) }}
+    </div>
+
+    <div class="button">
+        {{ form_widget(editCategoriesForm.submit) }}
+    </div>
+
+    {{ form_end(editCategoriesForm) }}
+
+{% endblock main %}

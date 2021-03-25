@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block style %}{{ asset('assets/css/style.css') }}{% endblock style %}
+
+{% block title %} Admin_list_categories {% endblock title %}
+
+{% block main %}
+    <table class="article">
+        <thead>
+        <tr>
+
+            <th>N°</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>CreatedAt</th>
+
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for categories in categories %}
+            <tr>
+
+                <td>{{ categories.id }}</td>
+{#                {% if categorie.article %}#}
+{#                    <td>{{ categorie.article.title }}</td>#}
+{#                {% else %}#}
+{#                    <td>NONE</td>#}
+{#                {% endif %}#}
+                <td>{{ categories.title }}</td>
+                <td>{{ categories.description }}</td>
+                <td>{{ categories.createdAt ? categories.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+
+                <td class="input_actions">
+                    <a href="{{ path('admin_edit_categories', {'id': categories.id}) }}">edit</a>
+                    <a href="{{ path('admin_remove_categories', {'id': categories.id}) }}">remove</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_add_categories') }}">Ajouter une catégorie</a>
+
+{% endblock main %}

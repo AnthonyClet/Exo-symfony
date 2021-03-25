@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block style %}{{ asset('assets/css/style.css') }}{% endblock style %}
+
+{% block title %} Admin_add_categories {% endblock title %}
+
+{% block main %}
+
+    <h1 class="title_page">Ajout d'une catégorie</h1>
+    {# je retourne mon formulaire grace a la methode form(je renseigne le nom du tableau de mon formulaire) #}
+
+    {{ form_start(addCategoriesForm , {'attr': {'class': 'form_article'}}) }}
+
+        <div class="title-form-article">
+            {{ form_label(addCategoriesForm.title) }}
+            {{ form_widget(addCategoriesForm.title) }}
+        </div>
+
+        <div class="content-form-article">
+            {{ form_label(addCategoriesForm.description) }}
+            {{ form_widget(addCategoriesForm.description) }}
+        </div>
+
+        <div class="createdat-form-article">
+            {{ form_label(addCategoriesForm.createdAt) }}
+            {{ form_widget(addCategoriesForm.createdAt) }}
+        </div>
+
+        <div class="button">
+            {{ form_widget(addCategoriesForm.submit) }}
+        </div>
+
+    {{ form_end(addCategoriesForm) }}
+
+{% endblock main %}
