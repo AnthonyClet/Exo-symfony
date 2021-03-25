@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block style %}{{ asset('assets/css/style.css') }}{% endblock style %}
+
+{% block title %} Edit_Article_Admin {% endblock title %}
+
+{% block main %}
+
+    <h1 class="title_page">Modification d'article</h1>
+    {# je retourne mon formulaire grace a la methode form(je renseigne le nom du tableau de mon formulaire) #}
+
+    {{ form_start(editFormView , {'attr': {'class': 'form_article'}}) }}
+
+        <div class="title-form-article">
+            {{ form_label(editFormView.title) }}
+            {{ form_widget(editFormView.title) }}
+        </div>
+
+        <div class="content-form-article">
+            {{ form_label(editFormView.content) }}
+            {{ form_widget(editFormView.content) }}
+        </div>
+
+        <div class="createdat-form-article">
+            {{ form_label(editFormView.createdAt) }}
+            {{ form_widget(editFormView.createdAt) }}
+        </div>
+
+        <div class="button">
+            {{ form_widget(editFormView.submit) }}
+        </div>
+
+    {{ form_end(editFormView) }}
+
+{% endblock main %}

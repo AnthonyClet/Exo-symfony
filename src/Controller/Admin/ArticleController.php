@@ -39,7 +39,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            $this->addFlash("success","Votre article à bien été ajouté");
+            $this->addFlash("success","Votre article à bien été ajouté.");
             return $this->redirectToRoute('admin_list_articles');
         }
 
@@ -73,25 +73,51 @@ class ArticleController extends AbstractController
      * @Route("/admin/articles/edit/{id}", name="admin_edit_article")
      */
     // Je créer ma méthode.
-    public function editArticle(ArticleRepository $articleRepository, EntityManagerInterface $entityManager, $id)
+    public function editArticle(Request $request, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, $id)
     {
-        // Je fais ma requete pour aller chercher mon article correspondant à ma withecard
+
         $article = $articleRepository->find($id);
 
-        if(is_null($article)) {
-            throw $this->createNotFoundException('article non trouvé');
-        } else {
+        // Je créer une variable qui va acceuillir ma création de formulaire
+        // grace a la class creatForm(). Pour cette création de formulaire j'instancie ma class ArticleType
+        // qui va créer automatiquement les input en fonction des champs de ma BDD aux quels je fais appel
+        $articleForm = $this->createForm(ArticleType::class, $article);
 
-            // Je modifie les infos de mon article a ma convenance (en l'occurence le titre)
-            $article->setTitle('J\'ai été modifié');
+        $articleForm->handleRequest($request);
 
-            // j'enregistre la modification dans ma BDD grace a flush().
+        if($articleForm->isSubmitted() && $articleForm->isValid()) {
+
+            $article = $articleForm->getData();
+
+            $entityManager->persist($article);
             $entityManager->flush();
 
-            // Je retourne un message comme quoi mon article a bien été modifié.
-            $this->addFlash("success","l'article à bien été modifié.");
+            $this->addFlash("success","Votre article à bien été modifié.");
             return $this->redirectToRoute('admin_list_articles');
         }
+
+        // Je retourne ma vue et je retourne mon formulaire dans un tableau que je nome 'articleFormView'
+        return $this->render('/admin/edit_articles.html.twig', [
+            'editFormView' => $articleForm->createView()
+        ]);
+
+        // Je fais ma requete pour aller chercher mon article correspondant à ma withecard
+//        $article = $articleRepository->find($id);
+//
+//        if(is_null($article)) {
+//            throw $this->createNotFoundException('article non trouvé');
+//        } else {
+//
+//            // Je modifie les infos de mon article a ma convenance (en l'occurence le titre)
+//            $article->setTitle('J\'ai été modifié');
+//
+//            // j'enregistre la modification dans ma BDD grace a flush().
+//            $entityManager->flush();
+//
+//            // Je retourne un message comme quoi mon article a bien été modifié.
+//            $this->addFlash("success","l'article à bien été modifié.");
+//            return $this->redirectToRoute('admin_list_articles');
+//        }
 
     }
 

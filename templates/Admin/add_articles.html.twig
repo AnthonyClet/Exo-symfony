@@ -1,10 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block style %}{{ asset('assets/css/style.css') }}{% endblock style %}
+
 {% block title %} Add_Article_Admin {% endblock title %}
 
 {% block main %}
 
+    <h1 class="title_page">Ajout d'article</h1>
     {# je retourne mon formulaire grace a la methode form(je renseigne le nom du tableau de mon formulaire) #}
-    {{ form(articleFormView) }}
+
+    {{ form_start(articleFormView , {'attr': {'class': 'form_article'}}) }}
+
+        <div class="title-form-article">
+            {{ form_label(articleFormView.title) }}
+            {{ form_widget(articleFormView.title) }}
+        </div>
+
+        <div class="content-form-article">
+            {{ form_label(articleFormView.content) }}
+            {{ form_widget(articleFormView.content) }}
+        </div>
+
+        <div class="createdat-form-article">
+            {{ form_label(articleFormView.createdAt) }}
+            {{ form_widget(articleFormView.createdAt) }}
+        </div>
+
+        <div class="button">
+            {{ form_widget(articleFormView.submit) }}
+        </div>
+
+    {{ form_end(articleFormView) }}
 
 {% endblock main %}
