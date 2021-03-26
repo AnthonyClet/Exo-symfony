@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -19,16 +20,19 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotNull
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotNull
      */
     private $createdAt;
 

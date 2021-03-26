@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -19,21 +20,25 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotNull
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotNull
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\NotNull
      */
     private $isPublished;
 

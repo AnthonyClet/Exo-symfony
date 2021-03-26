@@ -48,24 +48,24 @@ class ArticleController extends AbstractController
             'articleFormView' => $articleForm->createView()
         ]);
 
-//        // Je lui attribue toutes les valeurs liées aux colonnes de mes entités.
+//        Je lui attribue toutes les valeurs liées aux colonnes de mes entités.
 //        $article->setTitle('Je suis nouveau');
 //        $article->setContent('On m\'a ajouté grace au nouveau bouton !');
 //        $article->setCreatedAt(new \DateTime('NOW'));
 //
-//        // Je dis à doctrine que je viens de créer mon article.
+//        Je dis à doctrine que je viens de créer mon article.
 //        $entityManager->persist($article);
 //
-//        // Je demande à doctrine d'envoyer tout les elements en BDD.
+//        Je demande à doctrine d'envoyer tout les elements en BDD.
 //        $entityManager->flush();
 //
-//        //Je retourne ma vue affin d'afficher un message de confirmation.
+//        Je retourne ma vue affin d'afficher un message de confirmation.
 //        $this->addFlash("success","l'article à bien été enregisté.");
 //        return $this->redirectToRoute('admin_list_articles');
+//
+//
+//        $this->addFlash("success","l article a bien ete enregister");
 
-        /*
-        $this->addFlash("success","l article a bien ete enregister");
-        */
     }
 
 
@@ -101,20 +101,20 @@ class ArticleController extends AbstractController
             'editFormView' => $articleForm->createView()
         ]);
 
-        // Je fais ma requete pour aller chercher mon article correspondant à ma withecard
+//        Je fais ma requete pour aller chercher mon article correspondant à ma withecard
 //        $article = $articleRepository->find($id);
 //
 //        if(is_null($article)) {
 //            throw $this->createNotFoundException('article non trouvé');
 //        } else {
 //
-//            // Je modifie les infos de mon article a ma convenance (en l'occurence le titre)
+//            Je modifie les infos de mon article a ma convenance (en l'occurence le titre)
 //            $article->setTitle('J\'ai été modifié');
 //
-//            // j'enregistre la modification dans ma BDD grace a flush().
+//            j'enregistre la modification dans ma BDD grace a flush().
 //            $entityManager->flush();
 //
-//            // Je retourne un message comme quoi mon article a bien été modifié.
+//            Je retourne un message comme quoi mon article a bien été modifié.
 //            $this->addFlash("success","l'article à bien été modifié.");
 //            return $this->redirectToRoute('admin_list_articles');
 //        }
