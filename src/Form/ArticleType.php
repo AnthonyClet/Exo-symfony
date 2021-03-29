@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,6 +33,14 @@ class ArticleType extends AbstractType
                 'label' => 'Category',
                 'placeholder' => 'Choose category..',
 
+            ])
+            ->add('image', FileType::class, [
+                'label' => 'image',
+                'required' => false,
+                // mapped false signifie qu'on ne veut pas que symfony
+                // gère l'enregistrement de ce champs dans notre entité Article (donc
+                // dans notre article en bdd). On va le faire ici manuellement
+                'mapped' => false
             ])
             ->add('submit', SubmitType::class)
         ;

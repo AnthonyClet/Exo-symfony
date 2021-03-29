@@ -37,6 +37,11 @@ class Article
     private $createdAt;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image;
+
+    /**
      * Chaque article ne pourra avoir qu'une seule catégorie. Donc j'utilise ici
      * l'annotation ManyToOne pour créer la relation. Le many représente les articles et le one
      * représente la table reliée, à savoir les catégorie (un article (many) ne peut avoir qu'une seule catégorie (one)
@@ -88,6 +93,22 @@ class Article
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
     }
 
     /**

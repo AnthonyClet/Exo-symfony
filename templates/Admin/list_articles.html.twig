@@ -15,8 +15,9 @@
             <th>Name</th>
             <th>Content</th>
             <th>CreatedAt</th>
+            <th>Image</th>
 
-            <th>actions</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -24,18 +25,28 @@
             <tr>
 
                 <td>{{ article.id }}</td>
+
                 {% if article.category %}
                     <td>{{ article.category.title }}</td>
                 {% else %}
                     <td>NONE</td>
                 {% endif %}
+
                 <td>{{ article.title }}</td>
                 <td>{{ article.content }}</td>
                 <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 
+                {% if article.image %}
+                    <td class="img-box"><img class="image" src="{{ asset('uploads/images/'~article.image) }}" alt="{{article.title}}"></td>
+                {% else %}
+                    <td>NONE</td>
+                {% endif %}
+
                 <td class="input_actions">
                     <a href="{{ path('show_article', {'id': article.id}) }}">show</a>
+                    <p>-----------</p>
                     <a href="{{ path('admin_edit_article', {'id': article.id}) }}">edit</a>
+                    <p>-----------</p>
                     <a href="{{ path('admin_remove_article', {'id': article.id}) }}">remove</a>
                 </td>
             </tr>

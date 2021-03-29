@@ -43,10 +43,30 @@
     background-color: darkgrey;
 }
 
+.img-box{
+    text-align: center;
+    align-items: center;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.image{
+    width: auto;
+    height: auto;
+}
+
 .input_actions{
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
+    text-align: center;
+}
+
+.input_actions a{
+    text-decoration: none;
+    color: blue;
+}
+
+.input_actions a:hover{
+    text-decoration: none;
+    color: red;
 }
 
 .flash-success{
@@ -96,7 +116,11 @@
 
 }
 
-.title-form-article, .content-form-article, .createdat-form-article, .category-form-article{
+.title-form-article,
+.content-form-article,
+.createdat-form-article,
+.category-form-article,
+.img-form-article{
     margin: 25px;
     display: flex;
     justify-content: space-between;

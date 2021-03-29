@@ -5,11 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\FileManager\FilePersister;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ArticleController extends AbstractController
 {
@@ -20,7 +23,7 @@ class ArticleController extends AbstractController
 
     // Je créer ma fonction qui va me permetre d'ajouter un article a ma BDD et je lui fais hériter
     // de la class EntityManagerInterface.
-    public function addArticle(EntityManagerInterface $entityManager, Request $request)
+    public function addArticle(EntityManagerInterface $entityManager, Request $request, FilePersister $filePersister)
     {
         // Je créer mon article grace a ma class Article()
         $article = new Article();
@@ -35,6 +38,10 @@ class ArticleController extends AbstractController
         if($articleForm->isSubmitted() && $articleForm->isValid()) {
 
             $article = $articleForm->getData();
+
+            $file = $articleForm->get('image')->getData();
+
+            $filePersister->saveFile($article, $articleForm);
 
             $entityManager->persist($article);
             $entityManager->flush();
@@ -73,7 +80,12 @@ class ArticleController extends AbstractController
      * @Route("/admin/articles/edit/{id}", name="admin_edit_article")
      */
     // Je créer ma méthode.
-    public function editArticle(Request $request, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, $id)
+    public function editArticle(
+        Request $request,
+        ArticleRepository $articleRepository,
+        EntityManagerInterface $entityManager,
+        FilePersister $filePersister,
+        $id)
     {
 
         $article = $articleRepository->find($id);
@@ -88,6 +100,8 @@ class ArticleController extends AbstractController
         if($articleForm->isSubmitted() && $articleForm->isValid()) {
 
             $article = $articleForm->getData();
+
+            $article = $filePersister->saveFile($article, $articleForm);
 
             $entityManager->persist($article);
             $entityManager->flush();

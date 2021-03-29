@@ -31,6 +31,12 @@
             {{ form_widget(articleFormView.category) }}
         </div>
 
+        <div class="img-form-article">
+            {{ form_errors(articleFormView.image) }}
+            {{ form_label(articleFormView.image) }}
+            {{ form_widget(articleFormView.image) }}
+        </div>
+
         <div class="button">
             {{ form_widget(articleFormView.submit) }}
         </div>
