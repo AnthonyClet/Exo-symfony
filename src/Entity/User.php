@@ -37,21 +37,6 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=35, unique=true)
-     */
-    private $pseudo;
-
-    /**
-     * @ORM\column(type="integer")
-     */
-    private $age;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -109,30 +94,6 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPseudo(): string
-    {
-        return (string) $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): ?string
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function getAge(): integer
-    {
-        return (integer) $this->age;
-    }
-
-    public function setAge(integer $age): ?int
-    {
-        $this->age = $age;
 
         return $this;
     }

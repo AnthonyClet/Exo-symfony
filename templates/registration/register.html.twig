@@ -2,7 +2,9 @@
 
 {% block title %}Register{% endblock %}
 
-{% block body %}
+{% block style %} {{ asset('assets/css/style.css')}} {% endblock style %}
+
+{% block main %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
@@ -18,4 +20,4 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
-{% endblock %}
+{% endblock main %}
